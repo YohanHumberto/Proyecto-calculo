@@ -48,3 +48,21 @@ function Evaluar(integral, variable, limInferior, LimiteSuperior) {
         return "Todos los parametros deben contener un valor";
     }
 }
+
+function SubTrig(func) {
+    func.replace("sin", Math.sin)
+    func.replace("sinh", Math.sinh)
+    func.replace("cos", Math.cos)
+    func.replace("cosh", Math.cosh)
+    func.replace("tan", Math.tan)
+    func.replace("tanh", Math.tanh)
+    func.replace("acos", Math.acos)
+    func.replace("acosh", Math.acosh)
+    func.replace("asin", Math.asin)
+    func.replace("asinh", Math.asinh)
+    func.replace("atan", Math.atan)
+    func.replace("atanh", Math.atanh)
+    func.replace("atan2", Math.ata)
+    func.replace("hypot", Math.hypot)
+    func.replace("sin", Math.SQRT2)
+}

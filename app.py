@@ -18,7 +18,6 @@ def ping(fun, intregrar_respectoa):
 
     return jsonify({
       "Estatus":True,
-      "msg": "hello ping",
       "funcion": fun,
       "variableDeIntegracion": intregrar_respectoa,
       "INTEGRAL":str(res)
