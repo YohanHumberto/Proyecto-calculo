@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename = 'bootstrap.min.css')}}" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <main class="row p-2 justify-content-center m-0">
+        <form class="col-12 col-md-8 col-lg-6 m-auto border shadow p-5 pt-4 mt-1">
+            <h4 class="text-center">CALCULADORA DE INTEGRALES</h4>
+            <label class="mt-3" for="">FUNCION A INTEGRAR</label>
+            <input id="funcion" class="form-control" type="text" placeholder="Ingrese la funcion a integrar">
+            <!-- TECLADO DE FUNCIONES -->
+            <div id="TecladoDeFunciones" class="border mt-1 d-flex justify-content-center flex-wrap">
+                <button class="btn btn-light m-1 border" id="sin">sin</button>
+                <button class="btn btn-light m-1 border" id="sinh">sinh</button>
+                <button class="btn btn-light m-1 border" id="cos">cos</button>
+                <button class="btn btn-light m-1 border" id="cosh">cosh</button>
+                <button class="btn btn-light m-1 border" id="tan">tan</button>
+                <button class="btn btn-light m-1 border" id="tanh">tanh</button>
+                <button class="btn btn-light m-1 border" id="acos">acos</button>
+                <button class="btn btn-light m-1 border" id="acosh">acosh</button>
+                <button class="btn btn-light m-1 border" id="asin">asin</button>
+                <button class="btn btn-light m-1 border" id="asinh">asinh</button>
+                <button class="btn btn-light m-1 border" id="atan">atan</button>
+                <button class="btn btn-light m-1 border" id="atanh">atanh</button>
+                <button class="btn btn-light m-1 border" id="parentecis1">(</button>
+                <button class="btn btn-light m-1 border" id="parentecis2">)</button>
+                <button class="btn btn-light m-1 border" id="suma">+</button>
+                <button class="btn btn-light m-1 border" id="resta">-</button>
+                <button class="btn btn-light m-1 border" id="multiplicacion">*</button>
+                <button class="btn btn-light m-1 border" id="divicion">/</button>
+                <button class="btn btn-light m-1 border" id="exponenciacion">^</button>
+            </div>
+            <label class="mt-3" for="">VARIABEL A INTEGRAL</label>
+            <select id="variable" class="form-control" name="" id="">
+                <option value="x">X</option>
+                <option value="y">Y</option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+                <option value="e">E</option>
+                <option value="f">F</option>
+                <option value="g">G</option>
+                <option value="h">H</option>
+                <option value="i">I</option>
+                <option value="j">J</option>
+                <option value="k">K</option>
+                <option value="l">L</option>
+                <option value="m">M</option>
+                <option value="n">N</option>
+                <option value="o">O</option>
+                <option value="p">P</option>
+                <option value="q">Q</option>
+                <option value="ñ">Ñ</option>
+            </select>
+            <hr>
+            <h6>LIMITES DE INTEGRACION</h6>
+            <div class="row m-0 mb-3">
+                <div class="col-12 col-md-6 p-0 pe-md-2">
+                    <label class="mt-3" for="">Limite Inferior</label>
+                    <input id="limiteInferio" class="col-5 form-control" type="number"
+                        placeholder="Ingrese el limite inferior">
+                </div>
+                <div class="col-12 col-md-6 p-0 ps-md-2">
+                    <label class="mt-3" for="">Limite Superior</label>
+                    <input id="limiteSuperior" class="col-5 form-control" type="number"
+                        placeholder="Ingrese el limite superior">
+                </div>
+                <button id="calcular" class="btn btn-primary col-12 col-md-6 col-lg-3 mt-3">Calcular</button>
+            </div>
+            <hr>
+            <label class="mt-2" for="">FUNCION INTEGRADA</label>
+            <input id="resultadoIntegracion" disabled class="form-control alert-success">
+            <label class="mt-2" for="">RESULTADO DE LA EVALUACION</label>
+            <input id="resultadoEvaluacion" disabled class="form-control alert-success">
+        </form>
+    </main>
+</body>
+<script src="{{url_for('static', filename = 'main.js')}}"></script>
+
+</html>
