@@ -1,25 +1,12 @@
 
-// Event Click calcular
-document.getElementById("calcular").addEventListener("click", (event) => {
-    event.preventDefault();
-
-    const { Funcion, Variable, LimiteSuperior, LimiteInferior, ResultadoIntegraccion, ResultadoEvaluacion } = Inputs();
-
-    fetch(`http://localhost:4000/${(Funcion.value).toLowerCase()}/${(Variable.value).toLowerCase()}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            ResultadoIntegraccion.value = data.INTEGRAL;
-            ResultadoEvaluacion.value = Evaluar(data.INTEGRAL, data.variableDeIntegracion, LimiteInferior.value, LimiteSuperior.value);
-        }).catch(err => console.log(err));
-});
+let keyboardIsVisble = false;
 
 
 //Event click Teclado
 document.addEventListener("click", (event) => {
 
-
     event.preventDefault();
+
 
     const { Funcion } = Inputs();
 
@@ -101,13 +88,44 @@ document.addEventListener("click", (event) => {
             Funcion.value += "**";
             Funcion.focus();
             break;
+        case "calcular":
+            onCalcular(event);
+            break;
+        case "changeKeyboardVisible":
+            onChangeKeyboardVisible();
+            break;
+    }
+});
+
+//Event change inputs
+
+document.addEventListener("change", (event) => {
+    console.log("change")
+    if (event.target.id == "TipoIntegral") {
+        console.log("changeff")
+        FormTipoIntegral(event.target.value);
     }
 });
 
 
 
-
 //#region "FUNCIONES" 
+
+function onCalcular(event) {
+    const { TipoIntegral, Funcion, Variable, LimiteSuperior, LimiteInferior, ResultadoIntegraccion, ResultadoEvaluacion } = Inputs();
+    fetch(`http://localhost:4000/${(Funcion.value).toLowerCase()}/${(Variable.value).toLowerCase()}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            ResultadoIntegraccion.value = data.INTEGRAL;
+            if (TipoIntegral.value == "IntegralDefinida") {
+                ResultadoEvaluacion.value = Evaluar(data.INTEGRAL, data.variableDeIntegracion, LimiteInferior.value, LimiteSuperior.value);
+            } else if (TipoIntegral.value == "IntegralIndefinida") {
+                ResultadoEvaluacion.value = `${data.INTEGRAL} + C`;
+            }
+        }).catch(err => console.log(err));
+
+}
 
 function Evaluar(integral, variable, limInferior, LimiteSuperior) {
     if (integral && variable && limInferior && LimiteSuperior) {
@@ -153,6 +171,7 @@ function SubTrig(func) {
 
 function Inputs() {
     return {
+        TipoIntegral: document.getElementById("TipoIntegral"),
         Funcion: document.getElementById("funcion"),
         Variable: document.getElementById("variable"),
         LimiteSuperior: document.getElementById("limiteSuperior"),
@@ -160,6 +179,26 @@ function Inputs() {
         ResultadoIntegraccion: document.getElementById("resultadoIntegracion"),
         ResultadoEvaluacion: document.getElementById("resultadoEvaluacion"),
     }
+}
+
+function FormTipoIntegral(tipo) {
+
+    if (tipo == "IntegralDefinida") {
+        document.getElementById("limIntegracion").classList.remove("d-none");
+    } else if (tipo == "IntegralIndefinida") {
+        document.getElementById("limIntegracion").classList.add("d-none");
+    }
+
+}
+
+function onChangeKeyboardVisible() {
+    console.log("click")
+    if (keyboardIsVisble) {
+        document.getElementById("TecladoDeFunciones").classList.add("d-none")
+    } else {
+        document.getElementById("TecladoDeFunciones").classList.remove("d-none")
+    }
+    keyboardIsVisble = !keyboardIsVisble;
 }
 
 //#endregion
