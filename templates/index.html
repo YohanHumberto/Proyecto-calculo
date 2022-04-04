@@ -27,11 +27,8 @@
                 </div>
                 <div class="col-1 row m-0 p-0 align-content-end">
                     <button id="changeKeyboardVisible" class="btn p-0 alert-info px-1 pt-1">
-                        <svg id="changeKeyboardVisible" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
-                            width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M256 400a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm128 256a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48ZM128 272a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Zm0-128a48 48 0 1 0 48 48a48 48 0 0 0-48-48Z" />
-                        </svg>
+                        <img id="changeKeyboardVisible" src="{{url_for('static', filename = 'teclado.svg')}}"
+                            alt="teclado">
                     </button>
                 </div>
             </div>
@@ -56,6 +53,18 @@
                 <button class="btn btn-light m-1 border" id="multiplicacion">*</button>
                 <button class="btn btn-light m-1 border" id="divicion">/</button>
                 <button class="btn btn-light m-1 border" id="exponenciacion">^</button>
+                <button class="btn btn-light m-1 border" id="tecX">x</button>
+                <button class="btn btn-light m-1 border" id="tecY">y</button>
+                <button class="btn btn-light m-1 border" id="tecNum0">0</button>
+                <button class="btn btn-light m-1 border" id="tecNum1">1</button>
+                <button class="btn btn-light m-1 border" id="tecNum2">2</button>
+                <button class="btn btn-light m-1 border" id="tecNum3">3</button>
+                <button class="btn btn-light m-1 border" id="tecNum4">4</button>
+                <button class="btn btn-light m-1 border" id="tecNum5">5</button>
+                <button class="btn btn-light m-1 border" id="tecNum6">6</button>
+                <button class="btn btn-light m-1 border" id="tecNum7">7</button>
+                <button class="btn btn-light m-1 border" id="tecNum8">8</button>
+                <button class="btn btn-light m-1 border" id="tecNum9">9</button>
             </div>
             <label class="mt-3" for="">VARIABEL A INTEGRAL</label>
             <select id="variable" class="form-control" name="" id="">

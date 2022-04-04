@@ -12,21 +12,29 @@ cors = CORS(app, resources={"/*":{"origins": "*"}})
 def home():
    return render_template('index.html')
 
-@app.route('/<fun>/<intregrar_respectoa>')
-def ping(fun, intregrar_respectoa):
-    print(fun)
-    x=symbols(intregrar_respectoa)
-    res = integrate(fun, x)
-    print(res)
+@app.route('/integral', methods=['POST'])
+def about():
+  try:
+      print(request.json["Funcion"])
+      print(request.json["Variable"])
+      x=symbols(request.json["Variable"])
+      res = integrate(request.json["Funcion"], x)
+      print(res)
 
+      return jsonify({
+        "Estatus":True,
+        "funcion": request.json["Funcion"],
+        "variableDeIntegracion": request.json["Variable"],
+        "INTEGRAL":str(res)
+      })
+
+  except:
     return jsonify({
-      "Estatus":True,
-      "funcion": fun,
-      "variableDeIntegracion": intregrar_respectoa,
-      "INTEGRAL":str(res)
+      "Error": True,
+      "Estatus":False,
+    "funcion": request.json["Funcion"],
+        "variableDeIntegracion": request.json["Variable"],
     })
-
-
 
 if __name__ == '__main__':
   app.run(debug=True, port=4000)  

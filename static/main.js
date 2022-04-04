@@ -88,6 +88,54 @@ document.addEventListener("click", (event) => {
             Funcion.value += "**";
             Funcion.focus();
             break;
+        case "tecX":
+            Funcion.value += "x";
+            Funcion.focus();
+            break;
+        case "tecY":
+            Funcion.value += "y";
+            Funcion.focus();
+            break;
+        case "tecNum0":
+            Funcion.value += "0";
+            Funcion.focus();
+            break;
+        case "tecNum1":
+            Funcion.value += "1";
+            Funcion.focus();
+            break;
+        case "tecNum2":
+            Funcion.value += "2";
+            Funcion.focus();
+            break;
+        case "tecNum3":
+            Funcion.value += "3";
+            Funcion.focus();
+            break;
+        case "tecNum4":
+            Funcion.value += "4";
+            Funcion.focus();
+            break;
+        case "tecNum5":
+            Funcion.value += "5";
+            Funcion.focus();
+            break;
+        case "tecNum6":
+            Funcion.value += "6";
+            Funcion.focus();
+            break;
+        case "tecNum7":
+            Funcion.value += "7";
+            Funcion.focus();
+            break;
+        case "tecNum8":
+            Funcion.value += "8";
+            Funcion.focus();
+            break;
+        case "tecNum9":
+            Funcion.value += "9";
+            Funcion.focus();
+            break;
         case "calcular":
             onCalcular(event);
             break;
@@ -100,30 +148,42 @@ document.addEventListener("click", (event) => {
 //Event change inputs
 
 document.addEventListener("change", (event) => {
-    console.log("change")
     if (event.target.id == "TipoIntegral") {
-        console.log("changeff")
         FormTipoIntegral(event.target.value);
     }
 });
 
 
-
 //#region "FUNCIONES" 
 
 function onCalcular(event) {
+
     const { TipoIntegral, Funcion, Variable, LimiteSuperior, LimiteInferior, ResultadoIntegraccion, ResultadoEvaluacion } = Inputs();
-    fetch(`http://localhost:4000/${(Funcion.value).toLowerCase()}/${(Variable.value).toLowerCase()}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
+
+    fetch("http://localhost:4000/integral", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Funcion: (Funcion.value).toLowerCase(),
+            Variable: (Variable.value).toLowerCase()
+        })
+    }).then(res => res.json()).then(data => {
+        console.log(data)
+        if (!data.INTEGRAL.match("gamma")) {
             ResultadoIntegraccion.value = data.INTEGRAL;
             if (TipoIntegral.value == "IntegralDefinida") {
                 ResultadoEvaluacion.value = Evaluar(data.INTEGRAL, data.variableDeIntegracion, LimiteInferior.value, LimiteSuperior.value);
             } else if (TipoIntegral.value == "IntegralIndefinida") {
                 ResultadoEvaluacion.value = `${data.INTEGRAL} + C`;
             }
-        }).catch(err => console.log(err));
+        } else {
+            ResultadoIntegraccion.value = `La integral no es elemental`;
+            ResultadoEvaluacion.value = `La integral no es elemental`;
+        }
+    }).catch(err => console.log(err));
+
 
 }
 
@@ -132,9 +192,6 @@ function Evaluar(integral, variable, limInferior, LimiteSuperior) {
         try {
             let EvaluLimiteSuperior = SubTrig(integral.replaceAll(variable, LimiteSuperior));
             let EvaluLimiteInferior = SubTrig(integral.replaceAll(variable, limInferior));
-
-            console.log(EvaluLimiteSuperior);
-            console.log(EvaluLimiteInferior);
 
             let Resultado = eval(EvaluLimiteSuperior) - eval(EvaluLimiteInferior);
 
@@ -166,7 +223,7 @@ function SubTrig(func) {
     func = func.replaceAll("atan2", "Math.atan2");
     func = func.replaceAll("hypot", "Math.hypot");
     func = func.replaceAll("sqrt", "Math.sqrt");
-    return func;
+    return func.replaceAll("-Math.", "+ 0 - Math.");
 }
 
 function Inputs() {
@@ -192,7 +249,6 @@ function FormTipoIntegral(tipo) {
 }
 
 function onChangeKeyboardVisible() {
-    console.log("click")
     if (keyboardIsVisble) {
         document.getElementById("TecladoDeFunciones").classList.add("d-none")
     } else {
