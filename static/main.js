@@ -1,4 +1,3 @@
-
 let keyboardIsVisble = false;
 
 
@@ -22,6 +21,18 @@ document.addEventListener("click", (event) => {
             break;
         case "cos":
             Funcion.value += "cos()";
+            Funcion.focus();
+            break;
+        case "cot":
+            Funcion.value += "cot()";
+            Funcion.focus();
+            break;
+        case "sec":
+            Funcion.value += "sec()";
+            Funcion.focus();
+            break;
+        case "csc":
+            Funcion.value += "csc()";
             Funcion.focus();
             break;
         case "cosh":
@@ -159,6 +170,10 @@ document.addEventListener("change", (event) => {
 function onCalcular(event) {
 
     const { TipoIntegral, Funcion, Variable, LimiteSuperior, LimiteInferior, ResultadoIntegraccion, ResultadoEvaluacion } = Inputs();
+    let funcionx = ((Funcion.value.replaceAll("cot", "1/tan")).replaceAll("sec", "1/cos")).replaceAll("csc", "1/sen");
+
+    console.log(funcionx)
+
 
     fetch("http://localhost:4000/integral", {
         method: "POST",
@@ -166,12 +181,12 @@ function onCalcular(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            Funcion: (Funcion.value).toLowerCase(),
+            Funcion: (funcionx).toLowerCase(),
             Variable: (Variable.value).toLowerCase()
         })
     }).then(res => res.json()).then(data => {
         console.log(data)
-        if (!data.INTEGRAL.match("gamma")) {
+        if (!data.INTEGRAL?.match("gamma")) {
             ResultadoIntegraccion.value = data.INTEGRAL;
             if (TipoIntegral.value == "IntegralDefinida") {
                 ResultadoEvaluacion.value = Evaluar(data.INTEGRAL, data.variableDeIntegracion, LimiteInferior.value, LimiteSuperior.value);
@@ -195,7 +210,7 @@ function Evaluar(integral, variable, limInferior, LimiteSuperior) {
 
             let Resultado = eval(EvaluLimiteSuperior) - eval(EvaluLimiteInferior);
 
-            return Resultado;
+            return Resultado ? Resultado : "Lo sentimos....  no podemos resolver este  justo  ahora...";
 
         } catch (error) {
             console.log(error);
@@ -223,6 +238,11 @@ function SubTrig(func) {
     func = func.replaceAll("atan2", "Math.atan2");
     func = func.replaceAll("hypot", "Math.hypot");
     func = func.replaceAll("sqrt", "Math.sqrt");
+    func = func.replaceAll("log", "Math.log");
+    func = func.replaceAll("cot", "1/Math.tan");
+    func = func.replaceAll("sec", "1/Math.cos");
+    func = func.replaceAll("csc", "1/Math.sen");
+    console.log(func)
     return func.replaceAll("-Math.", "+ 0 - Math.");
 }
 
